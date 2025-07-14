@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Modern NEXUS - Your Stylish Online Store</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700&display=swap');
+
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #0c1f31;
+    color: #ffffff;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+
+  /* Header */
+  header {
+    background-color: #1a2634;
+    color: white;
+    padding: 25px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+  header h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 2.5px;
+    cursor: default;
+  }
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 36px;
+  }
+  nav ul li {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  nav ul li a {
+    color: #ebf0f5;
+    transition: color 0.3s ease;
+  }
+  nav ul li a:hover,
+  nav ul li a:focus {
+    color: #00a8ff;
+    outline: none;
+  }
+
+  /* NEW: Search Bar Styles */
+  .search-container {
+    position: relative;
+    width: 320px;
+    margin: 0 20px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 12px 20px;
+    padding-left: 48px;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  
+  .search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .search-input:focus {
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 2px #00a8ff;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    max-height: 400px;
+    overflow-y: auto;
+    z-index: 300;
+    display: none;
+  }
+  
+  .search-results.active {
+    display: block;
+  }
+  
+  .search-result-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.2s;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-result-item:hover {
+    background: #f5f5f5;
+  }
+  
+  .search-result-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    margin-right: 12px;
+  }
+  
+  .search-result-item .product-info {
+    flex: 1;
+  }
+  
+  .search-result-item .product-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .search-result-item .product-price {
+    color: #00a8ff;
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+  
+  .no-results {
+    padding: 16px;
+    color: #666;
+    text-align: center;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: url('https://images.unsplash.com/photo-1542831371-d531d36971e6?auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+    color: #fff;
+    text-shadow: 0 0 16px rgba(0,0,0,0.85);
+  }
+  .hero-content {
+    max-width: 640px;
+  }
+  .hero-content h2 {
+    font-size: 3.8rem;
+    margin-bottom: 22px;
+    font-weight: 700;
+    line-height: 1.05;
+  }
+  .hero-content p {
+    font-size: 1.4rem;
+    font-weight: 300;
+    margin-bottom: 36px;
+    letter-spacing: 0.5px;
+  }
+  .btn-primary {
+    background: #00a8ff;
+    color: white;
+    padding: 18px 48px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 20px rgba(0,168,255,0.55);
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background: #0086d1;
+    outline: none;
+  }
+
+  /* Main Content */
+  main {
+    max-width: 1280px;
+    margin: 60px auto 100px auto;
+    padding: 0 48px;
+  }
+  main h2.section-title {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 48px;
+    text-align: center;
+    color: #222;
+  }
+
+  /* Products Grid */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 38px;
+  }
+  .product-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px rgb(30 35 41 / 0.12);
+    transition: transform 0.3s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover,
+  .product-card:focus-within {
+    box-shadow: 0 20px 50px rgb(0 168 255 / 0.38);
+    transform: translateY(-12px);
+  }
+  .product-image {
+    background-color: #eef6ff;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-image img {
+    max-width: 700px;
+    max-height: 220px;
+    object-fit: contain;
+    user-select: none;
+  }
+  .product-details {
+    padding: 28px 32px 36px 32px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .product-name {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #111;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+  .product-price {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: #00a8ff;
+    margin-bottom: 26px;
+  }
+  .btn-add {
+    padding: 14px 0;
+    background-color: #1a2634;
+    border: none;
+    border-radius: 35px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 7px 19px rgba(26, 38, 52, 0.62);
+    transition: background-color 0.3s ease;
+    user-select: none;
+  }
+  .btn-add:hover,
+  .btn-add:focus {
+    background-color: #0086d1;
+    outline: none;
+  }
+
+  /* Cart toggle button */
+  #cart-toggle {
+    position: fixed;
+    right: 36px;
+    bottom: 36px;
+    background: #00a8ff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 2.9rem;
+    cursor: pointer;
+    box-shadow: 0 9px 25px rgba(0, 168, 255, 0.72);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    transition: background-color 0.3s ease;
+  }
+  #cart-toggle:hover,
+  #cart-toggle:focus {
+    background: #0086d1;
+    outline: none;
+  }
+
+  /* Cart Sidebar */
+  #cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -460px;
+    width: 440px;
+    height: 100vh;
+    background-color: white;
+    box-shadow: -6px 0 24px rgba(0, 0, 0, 0.18);
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  #cart-sidebar.open {
+    right: 0;
+  }
+  #cart-sidebar header {
+    background-color: #1a2634;
+    color: #f0f5fa;
+    font-weight: 700;
+    font-size: 1.45rem;
+    padding: 25px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  #cart-sidebar header button {
+    background: none;
+    border: none;
+    font-size: 2.25rem;
+    color: #f0f5fa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+  #cart-items {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+  }
+  .cart-empty {
+    color: #999;
+    font-style: italic;
+    margin-top: 56px;
+    text-align: center;
+  }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .cart-item-name {
+    font-weight: 600;
+    flex-grow: 1;
+    margin-right: 20px;
+    color: #202020;
+  }
+  .cart-item-qty {
+    font-weight: 500;
+    margin-right: 14px;
+    color: #555;
+  }
+  .cart-item-price {
+    font-weight: 700;
+    color: #00a8ff;
+    width: 82px;
+    text-align: right;
+  }
+  .cart-item-remove {
+    background: none;
+    border: none;
+    color: #d94f4f;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  .cart-item-remove:hover,
+  .cart-item-remove:focus {
+    color: #ff3b3b;
+    outline: none;
+  }
+  #cart-sidebar footer {
+    font-weight: 700;
+    font-size: 1.4rem;
+    padding: 26px 32px;
+    border-top: 2px solid #e1e6ec;
+    user-select: none;
+    color: #1a2634;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* Scrollbar styling for cart */
+  #cart-items::-webkit-scrollbar {
+    width: 7px;
+  }
+  #cart-items::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+  #cart-items::-webkit-scrollbar-thumb {
+    background: #c0c7d1;
+    border-radius: 10px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1200px) {
+    header {
+      padding: 20px 32px;
+    }
+    main {
+      padding: 0 32px;
+      margin: 50px auto 80px auto;
+    }
+    .hero {
+      height: 420px;
+      padding-left: 48px;
+    }
+    .hero-content h2 {
+      font-size: 3rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .search-container {
+      order: 3;
+      width: 100%;
+      margin: 15px 0 0 0;
+    }
+    
+    header {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 720px) {
+    header {
+      flex-direction: column;
+      padding: 20px 24px;
+      gap: 14px;
+    }
+    footer {
+  background-color: #0050e6;
+  color: #fff;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.footer-contact a {
+  color: #00aced;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.social-links {
+  margin-top: 10px;
+}
+
+    nav ul {
+      gap: 24px;
+    }
+    .hero {
+      height: 320px;
+      padding-left: 24px;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-content h2 {
+      font-size: 2.25rem;
+    }
+    main {
+      padding: 0 20px;
+      margin: 40px auto 60px auto;
+    }
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 28px;
+    }
+    #cart-sidebar {
+      width: 100vw;
+    }
+  }
+      #sign-in {
+      background-color: #0c1f31;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    #sign-in h2 {
+      font-size: 2.4rem;
+      margin-bottom: 30px;
+    }
+    .sign-in-form {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    .sign-in-form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .sign-in-form input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .sign-in-form button {
+      background-color: #00a8ff;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .sign-in-form button:hover {
+      background-color: #0086d1;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      header {
+        flex-direction: column;
+        gap: 14px;
+      }
+    }
+  
+</style>
+</head>
+<body>
+  <header>
+   <h1>NEXUS</h1><p>-Tech Shop</p>
+  
+   <!-- NEW: Search Bar -->
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search products..." aria-label="Search products">
+      <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+       <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+     <div class="search-results" id="search-results"></div>
+    </div>
+    <nav>
+      <ul>
+       <li><a href="#products" tabindex="0">Products</a></li>
+       <li><a href="#hero" tabindex="0">Home</a></li>
+       <li><a href="#About-us" tabindex="0">About us</a></li>
+       <li><a href="#sign-in">Sign In</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="hero" role="banner" aria-label="Welcome promotional banner">
+    <div class="hero-content">
+      <h2>Shop The Latest Stylish Tech Products<br />At Unmatched Prices</h2>
+      <p>Explore our exclusive collection of top-quality products. Shop smart, shop modern.</p>
+      <button class="btn-primary" id="btn-shop-now" aria-label="Shop Now button">Shop Now</button>
+    </div>
+  </section>
+
+  <main>
+    <h2 class="section-title" id="products" style="color: white;">Featured Products</h2>
+    <section class="products-grid" aria-live="polite" aria-label="Product listings" tabindex="0" id="product-list">
+     <!-- dynamic product cards inserted here -->
+    </section>
+  </main>
+
+ <button id="cart-toggle" aria-label="Open shopping cart">&#128722;</button>
+
+  <aside id="cart-sidebar" aria-label="Shopping cart" aria-hidden="true" role="dialog" aria-modal="true">
+   <header>
+    Shopping Cart
+    <button id="cart-close" aria-label="Close shopping cart">&times;</button>
+   </header>
+   <div id="cart-items" tabindex="0" aria-live="polite" aria-relevant="all">
+    <p class="cart-empty">Your cart is empty.</p>
+  </div>
+   <footer>
+    <span>Total:</span> <span id="cart-total">$0.00</span>
+  </footer>
+</aside>
+
+<script>
+  // Products definition
+  const products = [
+    { id: 1, name: 'Wireless Noise-Cancelling Headphones', price: 199.99, image: 'index_files/headphones-8210087_640.jpg' },
+    { id: 2, name: 'Smart Fitness Watch', price: 149.50, image: 'index_files/istockphoto-1331093241-612x612.webp' },
+    { id: 3, name: 'Ultra HD 4K Monitor', price: 349.00, image: 'index_files/download (18).jfif' },
+    { id: 4, name: 'Ergonomic Wireless Keyboard', price: 89.99, image: 'index_files/download (17).jfif' },
+    { id: 5, name: 'Portable Bluetooth Speaker', price: 59.95, image: 'index_files/download (16).jfif' },
+    { id: 6, name: 'Smart Home Assistant', price: 129.00, image: 'index_files/download (15).jfif' },
+    { id: 7, name: 'High-Performance Laptop', price: 999.99, image: 'index_files/images.jfif' },
+    { id: 8, name: 'Wireless Charging Pad', price: 29.99, image: 'index_files/download (14).jfif' },
+    { id: 9, name: 'Gaming Mouse with RGB Lights', price: 49.99, image: 'index_files/download (13).jfif' },
+    { id: 10, name: 'LED Desk Lamp with USB Port', price: 45.00, image: 'index_files/download (12).jfif' },
+    { id: 11, name: 'Noise-Isolating Earbuds', price: 79.99, image: 'index_files/download (11).jfif' },
+    { id: 12, name: 'Foldable Drone with Camera', price: 299.99, image: 'index_files/download (10).jfif' },
+    { id: 13, name: 'Smartphone Gimbal Stabilizer', price: 149.00, image: 'index_files/download (9).jfif' },
+    { id: 14, name: 'Virtual Reality Headset', price: 399.00, image: 'index_files/download (8).jfif' },
+    { id: 15, name: 'Electric Standing Desk', price: 449.99, image: 'index_files/download (7).jfif' },
+    { id: 16, name: 'Smart Thermostat', price: 159.00, image: 'index_files/download (6).jfif' },
+    { id: 17, name: '4K Action Camera', price: 249.95, image: 'index_files/download (5).jfif' },
+    { id: 18, name: 'USB-C Hub with Multiple Ports', price: 39.99, image: 'index_files/download (4).jfif' },
+    { id: 19, name: 'Wireless Mechanical Keyboard', price: 129.00, image: 'index_files/download (3).jfif' },
+    { id: 20, name: 'Compact Projector', price: 229.00, image: 'index_files/download (2).jfif' },
+    { id: 21, name: 'Gaming remote controler with RGB lights', price: 119.95, image: 'index_files/download (19).jfif' },
+    { id: 22, name: 'wireless charger with RGB alarm Clock', price: 99.95, image: 'index_files/images (1).jfif' },
+    { id: 23, name: 'Digital Drawing Tablet', price: 89.95, image: 'index_files/download (1).jfif' },
+    { id: 24, name: 'Wireless Security Camera', price: 99.99, image: 'index_files/download.jfif' }
+  ];
+
+  // DOM Elements
+  const productList = document.getElementById('product-list');
+  const cartToggle = document.getElementById('cart-toggle');
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartCloseBtn = document.getElementById('cart-close');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const btnShopNow = document.getElementById('btn-shop-now');
+  
+  // NEW: Search elements
+  const searchInput = document.querySelector('.search-input');
+  const searchResults = document.getElementById('search-results');
+
+  // Cart data stored by product ID => quantity
+  let cart = {};
+
+  // Render product cards
+  function renderProducts() {
+    productList.innerHTML = '';
+    products.forEach(product => {
+      const productCard = document.createElement('article');
+      productCard.classList.add('product-card');
+      productCard.setAttribute('tabindex', 0);
+      productCard.innerHTML = `
+        <div class="product-image" aria-label="Image of ${product.name}">
+          <img src="${product.image}" alt="${product.name}" loading="lazy" />
+        </div>
+        <div class="product-details">
+          <h3 class="product-name">${product.name}</h3>
+          <p class="product-price">$${product.price.toFixed(2)}</p>
+          <button class="btn-add" aria-label="Add ${product.name} to cart" data-id="${product.id}">Add to Cart</button>
+        </div>
+      `;
+      productList.appendChild(productCard);
+    });
+  }
+
+  // Render cart contents
+  function renderCart() {
+    cartItemsContainer.innerHTML = '';
+    const keys = Object.keys(cart);
+    if (keys.length === 0) {
+      cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      cartTotal.textContent = '0.00';
+      return;
+    }
+    let totalPrice = 0;
+    keys.forEach(id => {
+      const qty = cart[id];
+      const product = products.find(p => p.id === Number(id));
+      const productTotal = qty * product.price;
+      totalPrice += productTotal;
+
+      const cartItem = document.createElement('div');
+      cartItem.className = 'cart-item';
+      cartItem.innerHTML = `
+        <span class="cart-item-name">${product.name}</span>
+        <span class="cart-item-qty">x${qty}</span>
+        <span class="cart-item-price">$${productTotal.toFixed(2)}</span>
+        <button class="cart-item-remove" aria-label="Remove ${product.name} from cart" data-id="${id}">&times;</button>
+      `;
+      cartItemsContainer.appendChild(cartItem);
+    });
+    cartTotal.textContent = totalPrice.toFixed(2);
+    // Attach remove event listeners
+    const removeButtons = cartItemsContainer.querySelectorAll('.cart-item-remove');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', e => {
+        const id = e.target.getAttribute('data-id');
+        removeFromCart(id);
+      });
+    });
+  }
+
+  // Add product to cart
+  function addToCart(id) {
+    if (cart[id]) {
+      cart[id]++;
+    } else {
+      cart[id] = 1;
+    }
+    renderCart();
+  }
+
+  // Remove product from cart
+  function removeFromCart(id) {
+    if (cart[id]) {
+      delete cart[id];
+      renderCart();
+    }
+  }
+
+  // Toggle cart sidebar visibility
+  function toggleCart(forceOpen) {
+    const isOpen = cartSidebar.classList.contains('open');
+    if (forceOpen === true || (!isOpen && forceOpen !== false)) {
+      cartSidebar.classList.add('open');
+      cartSidebar.setAttribute('aria-hidden', 'false');
+      // Focus the cart for accessibility
+      cartSidebar.focus();
+    } else {
+      cartSidebar.classList.remove('open');
+      cartSidebar.setAttribute('aria-hidden', 'true');
+      // Return focus to cart button after close
+      cartToggle.focus();
+    }
+  }
+
+  // NEW: Search functionality
+  function handleSearch() {
+    const searchTerm = searchInput.value.toLowerCase();
+    searchResults.innerHTML = '';
+    
+    if (searchTerm.length < 2) {
+      searchResults.classList.remove('active');
+      return;
+    }
+    
+    const filteredProducts = products.filter(product => 
+      product.name.toLowerCase().includes(searchTerm)
+      .slice(0, 5)); // Limit to 5 results
+    
+    if (filteredProducts.length > 0) {
+      filteredProducts.forEach(product => {
+        const resultItem = document.createElement('div');
+        resultItem.className = 'search-result-item';
+        resultItem.innerHTML = `
+          <img src="${product.image}" alt="${product.name}">
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-price">$${product.price.toFixed(2)}</div>
+          </div>
+        `;
+        resultItem.addEventListener('click', () => {
+          // Scroll to product in main grid (you'd need to implement this)
+          searchInput.value = '';
+          searchResults.classList.remove('active');
+          // Alternatively, you could add directly to cart:
+          // addToCart(product.id);
+          // toggleCart(true);
+        });
+        searchResults.appendChild(resultItem);
+      });
+    } else {
+      searchResults.innerHTML = '<div class="no-results">No products found</div>';
+    }
+    
+    searchResults.classList.add('active');
+  }
+
+  // Close search results when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+      searchResults.classList.remove('active');
+    }
+  });
+
+  // Event delegation for add buttons
+  productList.addEventListener('click', e => {
+    if (e.target.classList.contains('btn-add')) {
+      const id = e.target.getAttribute('data-id');
+      addToCart(id);
+      toggleCart(true);
+    }
+  });
+
+  // Cart toggle open/close
+  cartToggle.addEventListener('click', () => toggleCart());
+
+  cartCloseBtn.addEventListener('click', () => toggleCart(false));
+
+  // Close cart with Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && cartSidebar.classList.contains('open')) {
+      toggleCart(false);
+    }
+  });
+
+  // Shop Now button scrolls to products
+  btnShopNow.addEventListener('click', () => {
+    document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // NEW: Search input events
+  searchInput.addEventListener('input', handleSearch);
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.length >= 2) {
+      handleSearch();
+    }
+  });
+
+  // Initial rendering
+  renderProducts();
+  renderCart();
+</script>
+<footer id="About-us" style="text-align: center;">
+  <div class="footer-About-us">
+    <h3>About us</h3>
+    <p style="max-width: 800px; margin: 0 auto 20px;">
+      At <strong>NEXUS</strong>, we're redefining the online shopping experience by offering the latest in technology, fashion, and lifestyle — all in one place. We believe in quality, affordability, and delivering products that inspire confidence and creativity.
+    </p>
+    <p style="max-width: 800px; margin: 0 auto 20px;">
+      Founded by a group of tech enthusiasts and trendsetters, our mission is simple: to connect you with premium products that elevate your daily life. Whether it's smart gadgets, wearable tech, or stylish accessories — we're here to keep you ahead of the curve.
+    </p>
+    <p style="margin-top: 30px;">
+      📧 Email: <a href="mailto:contact@nexusstore.com">contact@nexusstore.com</a><br>
+      📞 Phone: <a href="tel:+1234567890">+1 (234) 567-890</a><br>
+      📍 Address: 123 Innovation Avenue, Tech City, USA
+    </p>
+    <div class="social-links" style="margin-top: 20px;">
+      <a href="#" style="margin-right: 15px;">Facebook</a>
+      <a href="#" style="margin-right: 15px;">Instagram</a>
+      <a href="#" style="margin-right: 15px;">Twitter</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+<section id="sign-in">
+  <h2>Sign In</h2>
+  <div class="sign-in-form">
+    <form>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</section>
+</body>
+</html>
